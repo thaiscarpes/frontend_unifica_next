@@ -8,7 +8,7 @@ const Map = dynamic(()=>import('@/components/map'), {ssr: false})
 
 export default function Home() {
 
-  const showFooter = true
+  const showFooter = false
 
   return (
     <section>

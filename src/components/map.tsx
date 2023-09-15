@@ -19,7 +19,7 @@ export default function Map() {
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
       {markers.map((marker, index) => (
-        <Link href={'/location'}>
+        <Link href={`/location/${marker.id}`}>
           <Marker key={index} position={marker.geocode} icon={customIcon}>
             <Popup className="custom-popup">
               <div>
