@@ -10,7 +10,7 @@ import { MdLocationOn, MdFax, MdCall, MdAccessTime } from "react-icons/md";
 export default function Location() {
   return (
     <>
-      <Header />
+      <Header haveSearch />
 
       {/* Conteiner grandão */}
       <section className="flex flex-col mt-36 mb-24 w-full gap-6 p-4 h-full shrink-0">

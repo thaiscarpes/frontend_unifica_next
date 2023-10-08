@@ -1,6 +1,6 @@
 interface titleProps {
   title: String;
-  subtitle: String;
+  subtitle?: String;
 }
 
 // Componente que renderiza o títlo e o subtítulo do local

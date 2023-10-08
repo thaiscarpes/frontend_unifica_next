@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Children, ReactNode } from "react";
 
 //definindo tipos do botão
@@ -39,5 +40,23 @@ export default function Button({ type, children, text, onClick }: buttonProps) {
             <span>{text}</span>
             {children}
         </button>
+    )
+}
+
+export function FormButton({text, children, form}:{text:string, children:React.ReactNode, form:string}) {
+    return(
+        <button type="submit" form={form} className={`flex w-full justify-center items-center gap-2 p-3 rounded-lg transition bg-primary-500 text-surface-0 hover:bg-primary-800}`}>
+            <span>{text}</span>
+            {children}
+        </button>
+    )
+}
+
+export function LinkButton({text, children, link}:{text:string, children:React.ReactNode, link:string}){
+    return(
+        <Link href={link} className={`flex w-full justify-center items-center gap-2 p-3 rounded-lg transition bg-primary-500 text-surface-0 hover:bg-primary-800}`}>
+            <span>{text}</span>
+            {children}
+        </Link>
     )
 }
