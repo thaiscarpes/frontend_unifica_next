@@ -1,5 +1,5 @@
 'use client'
-import { editLocation, fetchLocation } from '@/services/fetchData'
+import { editLocation } from '@/services/fetchData'
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Spinner, useDisclosure } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -11,38 +11,37 @@ export default function Form({ id }) {
 
   const locationId = id
   const router = useRouter()
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
-  const [image, setImage] = useState('')
-  const [address, setAddress] = useState('')
-  const [extension, setExtension] = useState('')
-  const [phone, setPhone] = useState('')
-  const [startJourney, setStartJourney] = useState('')
-  const [endJourney, setEndJourney] = useState('')
-  const [latitude, setLatitude] = useState('')
-  const [longitude, setLongitude] = useState('')
-  const [submiting, setSubmiting] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [submiting, setSubmiting] = useState(false)
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    image: '',
+    address: '',
+    extension: '',
+    phone: '',
+    startJourney: '',
+    endJourney: '',
+    latitude: '',
+    longitude: '',
+  })
 
   useEffect(() => {
-    const fetchDataAsync = async () => {
-      const response = await fetchLocation(id)
-      if (response) {
-        setTitle(response[0].title)
-        setDescription(response[0].description)
-        setImage(response[0].image)
-        setAddress(response[0].address)
-        setExtension(response[0].extension)
-        setPhone(response[0].phone)
-        setStartJourney(response[0].startJourney)
-        setEndJourney(response[0].endJourney)
-        setLatitude(response[0].pointer.coordinates[1])
-        setLongitude(response[0].pointer.coordinates[0])
-      }
-    }
-    fetchDataAsync()
-    setIsLoading(false)
-  }, [])
+    fetch(`/api/locations/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setFormData(data)
+        setIsLoading(false)
+      })
+  }, [formData, id])
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }))
+  }
 
   const handleDelete = async () => {
     setSubmiting(true)
@@ -62,11 +61,9 @@ export default function Form({ id }) {
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    const formData = { title, image, description, address, extension, phone, startJourney, endJourney, latitude, longitude }
     setSubmiting(true)
-    console.log(`Submit: ${submiting}`)
     try {
-      const response = await editLocation(id, formData)
+      const response = await editLocation(id)
       response.ok ? console.log('Formulário enviado com sucesso!') : console.log('Erro ao enviar o formulário')
       setSubmiting(false)
       router.push('/admin')
@@ -151,17 +148,19 @@ export default function Form({ id }) {
                 label='Nome'
                 placeholder='Informe o nome do local'
                 name='title'
+                isRequired
                 size={size}
                 variant={variant}
                 radius={radius}
-                value={title}
+                value={formData[0].title}
                 labelPlacement={label}
                 startContent={<MdDomain className={iconStyle} />}
-                onChange={(e) => setTitle(e.target.value)} />
+                onChange={handleChange} />
               <Button
                 size='lg'
                 radius='sm'
                 variant='flat'
+
                 color='danger'
                 isIconOnly
                 startContent={<MdDelete className='text-red-500 text-xl group' />}
@@ -176,27 +175,29 @@ export default function Form({ id }) {
               label='Descrição'
               placeholder='Informe uma breve descrição do local'
               name='description'
+              isRequired
               size={size}
               variant={variant}
               radius={radius}
               labelPlacement={label}
               startContent={<MdInfoOutline className={iconStyle} />}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)} />
+              value={formData[0].description}
+              onChange={handleChange} />
             <Input
               classNames={classNames}
               type='text'
               label='Imagem'
               placeholder='Cole aqui a ID da imagem'
               name='image'
+              isRequired
               size={size}
               variant={variant}
               radius={radius}
               labelPlacement={label}
               startContent={<MdAddPhotoAlternate className={iconStyle} />}
-              value={image}
+              value={formData[0].image}
               description='Informe o código fornecido pelo banco de imagens: Ex.: kU7bTDZHLOM'
-              onChange={(e) => setImage(e.target.value)} />
+              onChange={handleChange} />
             <div className='flex items-center gap-6'>
               <Input
                 classNames={classNames}
@@ -204,13 +205,14 @@ export default function Form({ id }) {
                 label='Ramal'
                 placeholder='0000'
                 name='extension'
+                isRequired
                 size={size}
                 variant={variant}
                 radius={radius}
                 labelPlacement={label}
                 startContent={<MdFax className={iconStyle} />}
-                value={extension}
-                onChange={(e) => setExtension(e.target.value)} />
+                value={formData[0].extension}
+                onChange={handleChange} />
               <Input
                 classNames={classNames}
                 type='tel'
@@ -222,8 +224,8 @@ export default function Form({ id }) {
                 radius={radius}
                 labelPlacement={label}
                 startContent={<MdCall className={iconStyle} />}
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                value={formData[0].phone}
+                onChange={handleChange}
                 className='min-w-[60%]' />
             </div>
             <Input
@@ -232,13 +234,14 @@ export default function Form({ id }) {
               label='Endereço'
               placeholder='Endereço do local, ou número da sala'
               name='address'
+              isRequired
               size={size}
               variant={variant}
               radius={radius}
               labelPlacement={label}
               startContent={<MdLocationOn className={iconStyle} />}
-              value={address}
-              onChange={(e) => setAddress(e.target.value)} />
+              value={formData[0].address}
+              onChange={handleChange} />
             <div className='flex items-center gap-6'>
               <Input
                 classNames={classNames}
@@ -246,26 +249,28 @@ export default function Form({ id }) {
                 label='Início de jornada'
                 placeholder='00:00'
                 name='startJourney'
+                isRequired
                 size={size}
                 variant={variant}
                 radius={radius}
                 labelPlacement={label}
                 startContent={<MdAccessTime className={iconStyle} />}
-                value={startJourney}
-                onChange={(e) => setStartJourney(e.target.value)} />
+                value={formData[0].startJourney}
+                onChange={handleChange} />
               <Input
                 classNames={classNames}
                 type='time'
                 label='Fim de jornada'
                 placeholder='00:00'
                 name='endJourney'
+                isRequired
                 size={size}
                 variant={variant}
                 radius={radius}
                 labelPlacement={label}
                 startContent={<MdAccessTime className={iconStyle} />}
-                value={endJourney}
-                onChange={(e) => setEndJourney(e.target.value)} />
+                value={formData[0].endJourney}
+                onChange={handleChange} />
             </div>
             <div className='flex items-center gap-6'>
               <Input
@@ -274,26 +279,28 @@ export default function Form({ id }) {
                 label='latitude'
                 placeholder='-00.000000'
                 name='latitude'
+                isRequired
                 size={size}
                 variant={variant}
                 radius={radius}
                 labelPlacement={label}
-                value={latitude}
+                value={formData[0].pointer.coordinates[0]}
                 startContent={<MdMap className={iconStyle} />}
-                onChange={(e) => setLatitude(e.target.value)} />
+                onChange={handleChange} />
               <Input
                 classNames={classNames}
                 type='text'
                 label='Longitude'
                 placeholder='-00.000000'
                 name='longitude'
+                isRequired
                 size={size}
                 variant={variant}
                 radius={radius}
                 labelPlacement={label}
-                value={longitude}
+                value={formData[0].pointer.coordinates[1]}
                 startContent={<MdMap className={iconStyle} />}
-                onChange={(e) => setLongitude(e.target.value)} />
+                onChange={handleChange} />
             </div>
             <div className='flex items-center gap-4 p-4 bg-white border-t-1 border-zinc-200 fixed bottom-0 left-0 w-full md:px-[30%]' >
               <Button

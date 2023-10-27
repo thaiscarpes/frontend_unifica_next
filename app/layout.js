@@ -1,6 +1,5 @@
 import { Lato } from 'next/font/google'
 import './globals.css'
-import Header from '@/components/header'
 
 const lato = Lato({
   weight: '400',
@@ -19,8 +18,7 @@ export default function RootLayout({ children }) {
         <link rel="shortcut icon" href="icon.png" type="image/x-icon" />
       </head>
       <body className={`bg-[#F8FBFF] text-zinc-500 ${lato.className}`}>
-          <Header/>
-          {children}
+        {children}
       </body>
     </html>
   )

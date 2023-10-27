@@ -2,6 +2,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+Create an ".env" file and add the MONGODB-URI:
+(MONGODB_URI="mongodb+srv://<username>:<password>@cluster0.fyhjdyt.mongodb.net/?retryWrites=true&w=majority")
+
 First, run the development server:
 
 ```bash
