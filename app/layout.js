@@ -1,3 +1,4 @@
+import Provider from '@/components/provider'
 import { Lato } from 'next/font/google'
 import './globals.css'
 
@@ -11,14 +12,14 @@ export const metadata = {
   description: 'Unificando os locais do Centro Unificado de Fronteira',
 }
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="pt-br">
       <head>
         <link rel="shortcut icon" href="icon.png" type="image/x-icon" />
       </head>
-      <body className={`bg-[#F8FBFF] text-zinc-500 ${lato.className}`}>
-        {children}
+      <body className={`text-zinc-500 ${lato.className}`}>
+        <Provider>{children}</Provider>
       </body>
     </html>
   )

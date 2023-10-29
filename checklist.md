@@ -2,10 +2,10 @@
 - [X] Ajustado o header quando nas rotas admin
 - [X] Ajustado o bug da pesquisa sempre aberta
 - [X] Ajsutado um bug na edição, reformulada a lógica
-- [ ] Autenticação
-    - [ ] Tela de login
-    - [ ] Lógica de autenticação
-    - [ ] Bloqueio das rotas admin
+- [X] Autenticação
+    - [X] Tela de login
+    - [X] Lógica de autenticação
+    - [X] Bloqueio das rotas admin
 - [ ] Atualizar o estado do mapa quando seguindo para mostrar a distancia do usuário do local de destino em tempo real
 - [ ] Verificar a possibilidade de atualizar a posição do usuário em tempo real também
 - [ ] Idioma

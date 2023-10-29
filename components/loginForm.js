@@ -1,83 +1,74 @@
 'use client'
-import { Button, Input } from "@nextui-org/react"
-import { useState } from 'react'
-import { MdCheck, MdClose, MdEmail, MdLock } from "react-icons/md"
-
-const onSubmit = (e) => {
-    e.preventDefault()
-
-}
+import { fetchUsers } from '@/services/fetchData'
+import { Button, Input } from '@nextui-org/react'
+import { signIn, useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
+import { MdCheck, MdClose, MdEmail, MdLock } from 'react-icons/md'
+import { AiOutlineGoogle } from 'react-icons/ai'
 
 export default function LoginForm() {
 
+    const { data: session, status } = useSession()
+
+    const router = useRouter()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [notAuthorized, setNotAuthorized] = useState(false)
     const [submiting, setSubmiting] = useState(false)
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
 
-    const size = 'lg'
-    const variant = 'bordered'
-    const radius = 'sm'
-    const label = 'outside'
-    const iconStyle = 'text-xl text-zinc-300'
-    const classNames = {
-        label: 'text-zinc-500 text-base',
-        input: 'text-zinc-700 text-base placeholder:text-zinc-300',
-        inputWrapper: 'border-1 border-zinc-200 bg-white !cursor-text',
-    }
+    useEffect(() => {
+        setIsLoading(true)
+        const fetchDataAsync = async () => {
+            const response = await fetchUsers()
+            if (response) {
+                if (status === 'authenticated') {
+                    const isAuthorized = response.find(data => data.email === session?.user?.email)
+                    if (isAuthorized) {
+                        router.push('/admin')
+                    } else {
+                        setIsLoading(false)
+                        setNotAuthorized(true)
+                    }
+                } else {
+                    setNotAuthorized(false)
+                }
+            }
+        }
+        fetchDataAsync()
+        setIsLoading(false)
+    }, [session])
 
     return (
-        <form onSubmit={onSubmit} className='flex flex-col gap-6 px-4'>
-            <Input
-                classNames={classNames}
-                type='email'
-                label='E-mail'
-                placeholder='Seu e-mail cadastrado'
-                isRequired
-                size={size}
-                variant={variant}
-                radius={radius}
-                labelPlacement={label}
-                startContent={<MdEmail className={iconStyle} />}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)} />
-            <Input
-                classNames={classNames}
-                type='password'
-                label='Senha'
-                placeholder='************'
-                isRequired
-                size={size}
-                variant={variant}
-                radius={radius}
-                labelPlacement={label}
-                startContent={<MdLock className={iconStyle} />}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)} />
-            <div className='flex items-center gap-4 p-4 bg-white border-t-1 border-zinc-200 fixed bottom-0 left-0 w-full md:px-[30%]'>
+        <>
+            {/* LOGIN COM GOOGLE */}
+            <Button
+                size='lg'
+                radius='sm'
+                variant='flat'
+                startContent={<AiOutlineGoogle className='text-blue-600 text-lg' />}
+                className='mx-4 bg-blue-100 text-blue-600 hover:bg-blue-200 transition-background w-max'
+                onClick={() => signIn("google")}>
+                Fazer login com o Google
+            </Button>
+
+            {/* MENSAGEM NÃO É O USUÁRIO */}
+            {notAuthorized && <p className='text-red-500 text-lg'>Usuário não autorizado!</p>}
+
+            {/* FOOTER */}
+            <div className='flex justify-center items-center gap-4 p-4 bg-white border-t-1 border-zinc-200 fixed bottom-0 left-0 w-full md:px-[30%]'>
                 <Button
                     size='lg'
                     radius='sm'
                     variant='flat'
                     startContent={<MdClose className='text-blue-600 text-lg' />}
-                    className='bg-blue-100 text-blue-600 hover:bg-blue-200 transition-background w-full'
-                    onClick={() => { router.push('/admin') }}
+                    className='bg-blue-100 text-blue-600 hover:bg-blue-200 transition-background w-1/2'
+                    onClick={() => { router.push('/') }}
                 >
                     Cancelar
                 </Button>
-                <Button
-                    size='lg'
-                    radius='sm'
-                    variant='flat'
-                    startContent={<MdCheck className='text-white text-lg' />}
-                    className='bg-blue-600 text-white hover:bg-blue-700 transition-background w-full'
-                    type='submit'
-                    isLoading={submiting}
-                    disabled={submiting}
-                >
-                    {submiting ? 'Entrando' : 'Login'}
-                </Button>
             </div>
-        </form>
+        </>
     )
 }

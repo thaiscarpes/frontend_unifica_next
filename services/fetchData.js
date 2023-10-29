@@ -29,3 +29,11 @@ export function newLocation(formData) {
         body: JSON.stringify(formData)
     })
 }
+
+export function fetchUser(email) {
+    return fetch(`/api/users/${email}`).then((res) => res.json())
+}
+
+export function fetchUsers() {
+    return fetch(`/api/users`).then((res) => res.json())
+}
