@@ -41,10 +41,10 @@ export default function Form() {
   const variant = 'bordered'
   const radius = 'sm'
   const label = 'outside'
-  const iconStyle = 'text-xl text-zinc-300'
+  const iconStyle = 'text-xl text-zinc-400'
   const classNames = {
     label: 'text-zinc-500 text-base',
-    input: 'text-zinc-700 text-base placeholder:text-zinc-300',
+    input: 'text-zinc-700 text-base placeholder:text-zinc-400',
     inputWrapper: 'border-1 border-zinc-200 bg-white !cursor-text',
   }
 

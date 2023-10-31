@@ -1,6 +1,6 @@
 import Provider from '@/components/provider'
 import { Lato } from 'next/font/google'
-import './globals.css'
+import '@/styles/globals.css'
 
 const lato = Lato({
   weight: '400',

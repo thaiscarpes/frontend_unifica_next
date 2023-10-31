@@ -18,6 +18,9 @@
       ],
       "@/services/*": [
         "services/*"
+      ],
+      "@/styles/*": [
+        "styles/*"
       ]
     },
     "allowJs": true,
