@@ -8,4 +8,4 @@
     - [X] Bloqueio das rotas admin
 - [ ] Atualizar o estado do mapa quando seguindo para mostrar a distancia do usuário do local de destino em tempo real
 - [ ] Verificar a possibilidade de atualizar a posição do usuário em tempo real também
-- [ ] Idioma
+- [X] Idioma

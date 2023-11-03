@@ -3,7 +3,7 @@ import { Button } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
 import { MdClose, MdExplore } from 'react-icons/md'
 
-export default function Footer({locationId}) {
+export default function Footer({locationId, language}) {
 
   const router = useRouter()
 
@@ -17,7 +17,7 @@ export default function Footer({locationId}) {
         className='bg-blue-100 text-blue-600 hover:bg-blue-200 transition-background w-full'
         onClick={() => {router.push('/')}}
       >
-      Fechar
+      {language.commons.close}
       </Button>
       <Button 
         size='lg'
@@ -27,7 +27,7 @@ export default function Footer({locationId}) {
         className='bg-blue-600 text-white hover:bg-blue-700 transition-background w-full'
         onClick={() => {router.push(`/following/${locationId}`)}}
       >
-      Seguir no mapa
+      {language.commons.follow}
       </Button>
     </div>
   )

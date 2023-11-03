@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 import { MdCheck, MdClose, MdEmail, MdLock } from 'react-icons/md'
 import { AiOutlineGoogle } from 'react-icons/ai'
 
-export default function LoginForm() {
+export default function LoginForm({language}) {
 
     const { data: session, status } = useSession()
 
@@ -50,11 +50,11 @@ export default function LoginForm() {
                 startContent={<AiOutlineGoogle className='text-blue-600 text-lg' />}
                 className='mx-4 bg-blue-100 text-blue-600 hover:bg-blue-200 transition-background w-max'
                 onClick={() => signIn("google")}>
-                Fazer login com o Google
+                {language.login.doLoginWithGoogle}
             </Button>
 
             {/* MENSAGEM NÃO É O USUÁRIO */}
-            {notAuthorized && <p className='text-red-500 text-lg'>Usuário não autorizado!</p>}
+            {notAuthorized && <p className='text-red-500 text-lg px-6'>{language.login.userNotPermitted}</p>}
 
             {/* FOOTER */}
             <div className='flex justify-center items-center gap-4 p-4 bg-white border-t-1 border-zinc-200 fixed bottom-0 left-0 w-full md:px-[30%]'>
@@ -66,7 +66,7 @@ export default function LoginForm() {
                     className='bg-blue-100 text-blue-600 hover:bg-blue-200 transition-background w-1/2'
                     onClick={() => { router.push('/') }}
                 >
-                    Cancelar
+                    {language.commons.cancel}
                 </Button>
             </div>
         </>

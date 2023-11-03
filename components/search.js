@@ -6,7 +6,7 @@ import { MdSearch } from "react-icons/md"
 import { searchLocation } from '../services/fetchData'
 import LoadSpinner from "./loadSpinner"
 
-export default function Search() {
+export default function Search({language}) {
 
   const [searchTerm, setSearchTerm] = useState('')
   const [data, setData] = useState(null)
@@ -34,7 +34,7 @@ export default function Search() {
         variant="bordered"
         labelPlacement="outside"
         type="search"
-        placeholder="Pesquise por um local"
+        placeholder={language.search.searchForAPlace}
         endContent={<MdSearch className="text-zinc-200 text-2xl" />}
         radius="sm"
         size="lg"
@@ -47,7 +47,7 @@ export default function Search() {
           isLoading ? (<LoadSpinner />) : (
             <div className="flex flex-col w-full">
               <div className="flex w-full justify-start px-4 pb-4 font-bold text-lg text-zinc-800">
-                <h2>Resultados</h2>
+                <h2>{language.search.searchResults}</h2>
               </div>
               {data.map(result => (
                 <Location

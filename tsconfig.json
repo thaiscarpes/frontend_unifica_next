@@ -21,6 +21,9 @@
       ],
       "@/styles/*": [
         "styles/*"
+      ],
+      "@/config": [
+        "config/*"
       ]
     },
     "allowJs": true,

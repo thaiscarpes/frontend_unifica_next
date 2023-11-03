@@ -18,10 +18,12 @@
     "mongoose": "^7.6.3",
     "next": "13.5.5",
     "next-auth": "^4.24.4",
+    "next-intl": "^2.22.1",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^4.11.0",
-    "react-leaflet": "^4.2.1"
+    "react-leaflet": "^4.2.1",
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
     "@types/react": "18.2.30",

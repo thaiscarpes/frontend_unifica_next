@@ -1,11 +1,11 @@
 'use client'
 import Search from '@/components/search'
+import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 import { MdAdminPanelSettings, MdLanguage, MdLogout } from 'react-icons/md'
-import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button} from '@nextui-org/react'
 
-export default function Header() {
+export default function Header({language}) {
 
   return (
     <header className='fixed top-0 left-0 w-full bg-white z-20 md:px-[30%]'>
@@ -24,18 +24,18 @@ export default function Header() {
               </Button>
             </DropdownTrigger>
             <DropdownMenu aria-label="Static Actions">
-              <DropdownItem key="new">Português - Brasil</DropdownItem>
-              <DropdownItem key="copy">Espanhól - Argentina</DropdownItem>
+              <DropdownItem key="new"><Link href='/pt-BR'>Português - Brasil</Link></DropdownItem>
+              <DropdownItem key="copy"><Link href='/es-AR'>Espanhol - Argentina</Link></DropdownItem>
             </DropdownMenu>
           </Dropdown>
         </div>
       </div>
-      <Search />
+      <Search language={language} />
     </header>
   )
 }
 
-export function AdminHeader({ user }) {
+export function AdminHeader() {
 
   return (
     <header className='fixed top-0 left-0 w-full bg-white z-20 md:px-[30%]'>
@@ -47,28 +47,24 @@ export function AdminHeader({ user }) {
           <button onClick={() => signOut()}>
             <MdLogout className='text-2xl text-zinc-800 cursor-pointer' />
           </button>
-          <Dropdown>
+          {/* <Dropdown>
             <DropdownTrigger>
               <Button isIconOnly variant='light'>
                 <MdLanguage className='text-2xl text-zinc-800 cursor-pointer' />
               </Button>
             </DropdownTrigger>
             <DropdownMenu aria-label="Static Actions">
-              <DropdownItem key="new">Português - Brasil</DropdownItem>
-              <DropdownItem key="copy">Espanhól - Argentina</DropdownItem>
+              <DropdownItem key="new"><Link href='/pt-BR/admin'>Português - Brasil</Link></DropdownItem>
+              <DropdownItem key="copy"><Link href='/es-AR/admin'>Espanhol - Argentina</Link></DropdownItem>
             </DropdownMenu>
-          </Dropdown>
+          </Dropdown> */}
         </div>
-      </div>
-      <div className='bg-white text-zinc-800 px-5 pt-4 pb-6 text-lg font-bold'>
-        <span className='text-base font-normal text-zinc-400'>Olá,</span>
-        <h2>{user} 😊</h2>
       </div>
     </header>
   )
 }
 
-export function LoginHeader() {
+export function LoginHeader({language}) {
 
   return (
     <header className='fixed top-0 left-0 w-full bg-white z-20 md:px-[30%]'>
@@ -84,14 +80,14 @@ export function LoginHeader() {
               </Button>
             </DropdownTrigger>
             <DropdownMenu aria-label="Static Actions">
-              <DropdownItem key="new">Português - Brasil</DropdownItem>
-              <DropdownItem key="copy">Espanhol - Argentina</DropdownItem>
+              <DropdownItem key="new"><Link href='/pt-BR/login'>Português - Brasil</Link></DropdownItem>
+              <DropdownItem key="copy"><Link href='/es-AR/login'>Espanhol - Argentina</Link></DropdownItem>
             </DropdownMenu>
           </Dropdown>
         </div>
       </div>
       <div className='bg-white text-zinc-800 px-5 p-5 text-lg font-bold'>
-        <h2>Login</h2>
+        <h2>{language.login.headerTitle}</h2>
       </div>
     </header>
   )

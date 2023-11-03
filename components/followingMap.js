@@ -12,7 +12,7 @@ import latituteAdjustment from '@/utils/latituteAdjustment'
 const locationIcon = new Icon({ iconUrl: locationPin.src, iconSize: [30, 30],})
 const userIcon = new Icon({ iconUrl: userPin.src, iconSize: [30, 30],})
 
-export default function Map({locations, following, locationCoords}) {
+export default function Map({locations, following, locationCoords, language}) {
 
   const mapContainerRef = useRef(null)
   const mapInstanceRef = useRef(null)
@@ -42,27 +42,16 @@ export default function Map({locations, following, locationCoords}) {
     }
   }, [])
 
-  useEffect(() => {
-    const CUFRadius = centerPosition
-    if (userLocation && CUFRadius) {
-      const Userdistance = calculateDistance(userLocation, CUFRadius)
-      setIsWithinRadius(Userdistance <= allowedDistance)
-      setDistance(Userdistance)
-      console.log(Userdistance)
-    }
-  }, [userLocation])
 
   return (
       <MapContainer center={centerPosition} zoom={zoom} className="h-full w-full" ref={mapContainerRef}>
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        
-        {isWithinRadius ? (
       
         <>{userLocation && (
           <Marker position={userLocation} icon={userIcon}>
             <Popup className="custom-popup">
                 <div className='flex flex-col gap-2 p-2 items-center justify-center'>
-                  <p className='text-zinc-800 font-bold text-base leading-none hover:text-blue-700 transition'>Você está aqui</p>
+                  <p className='text-zinc-800 font-bold text-base leading-none hover:text-blue-700 transition'>{language.map.youAreHere}</p>
                 </div>
               </Popup>
           </Marker>)}
@@ -75,7 +64,7 @@ export default function Map({locations, following, locationCoords}) {
               { following == true && <Tooltip direction="bottom" offset={[0, 20]} opacity={1} permanent >
                 <div className='flex flex-col gap-2 p-2 items-center justify-center cursor-pointer'>
                   <p className='text-zinc-800 font-bold text-base leading-none hover:text-blue-700 transition'>{location.title}</p>
-                  <span className='text-zinc-500 text-sm leading-none'>{distance} metros de distância</span>
+                  <span className='text-zinc-500 text-sm leading-none'>{distance} {language.map.distanceMeters}</span>
                 </div>
               </Tooltip>}
               <Popup>
@@ -87,16 +76,6 @@ export default function Map({locations, following, locationCoords}) {
 
           </Link>))}
           </>
-       
-       ):(
-        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[9999] w-full h-full flex items-center justify-center backdrop-blur-sm backdrop-brightness-75">
-          <div className='flex flex-col gap-6 text-base text-center rounded-lg w-full mx-12 p-12 bg-white drop-shadow-2xl'>
-            <h2 className='text-zinc-800 font-bold text-xl leading-none hover:text-blue-700 transition'>Longe do C.U.F</h2>
-            <p>Você não está localizado dentro do Centro Unificado de Fronteira.</p>
-            <p className='text-zinc-400'>O objetivo do Unifica é ajudar as pessoas que passam pelo C.U.F para realizar os procedimentos de importação ou exportação.</p>
-          </div>
-        </div>
-      )}
     </MapContainer>
   )
 }
