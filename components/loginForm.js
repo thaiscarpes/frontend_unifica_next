@@ -2,7 +2,7 @@
 import { fetchUsers } from '@/services/fetchData'
 import { Button, Input } from '@nextui-org/react'
 import { signIn, useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { MdCheck, MdClose, MdEmail, MdLock } from 'react-icons/md'
 import { AiOutlineGoogle } from 'react-icons/ai'
