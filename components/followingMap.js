@@ -67,12 +67,15 @@ export default function Map({ locations, following, locationCoords, language }) 
   // CHAMA A FUNÇÃO PARA OBTER A LOCALIZAÇÃO A CADA 2 SEGUNDOS
   useEffect(() => {
     getUserLocation() // CHAMA A FUNÇÃO IMEDIATAMENTE
-    const WatchId = setInterval(watchUserPosition, 5000) //OBSERVA A POSIÇÃO POR X MILISEGUNDOS
-    console.log(userLocation)
+    const WatchId = setInterval(() => { getUserLocation() }, 5000) //OBSERVA A POSIÇÃO POR X MILISEGUNDOS
     return () => {
       clearInterval(WatchId)
     }
   }, [])
+
+  useEffect(() => {
+    console.log(userLocation); // Exibirá as atualizações de userLocation
+  }, [userLocation])
 
   // FAZ O CALCULO DA DISTANCIA DO USUÀRIO ATÈ O CUF
   useEffect(() => {
@@ -108,7 +111,7 @@ export default function Map({ locations, following, locationCoords, language }) 
           // eslint-disable-next-line react/jsx-key
           <Link href={`${lang}/location/${location._id}`} key={location._id} >
 
-            <Marker key={location.id} position={[location.pointer.coordinates[1], location.pointer.coordinates[0]]} icon={locationIcon} closeButton={false}>
+            <Marker key={location.id} position={[location.pointer.coordinates[1], location.pointer.coordinates[0]]} icon={locationIcon} closeButton={false} update>
               {following == true && <Tooltip direction="bottom" offset={[0, 20]} opacity={1} permanent >
                 <div className='flex flex-col gap-2 p-2 items-center justify-center cursor-pointer'>
                   <p className='text-zinc-800 font-bold text-base leading-none hover:text-blue-700 transition'>{location.title}</p>
