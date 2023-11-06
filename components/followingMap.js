@@ -46,8 +46,14 @@ export default function Map({ locations, following, locationCoords, language }) 
   // FUNÇÃO PARA OBTER A LOCALIZAÇÃO DO USUÁRIO
   const getUserLocation = () => {
 
+    const options = {
+      enableHighAccuracy: true, // Habilita alta precisão
+      timeout: 5000, // Tempo limite em milissegundos (5 segundos neste exemplo)
+      maximumAge: 0, // Não usar dados de localização em cache
+    };
+
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(getPosition)
+      navigator.geolocation.getCurrentPosition(getPosition, geoError, options)
     }
   }
 
@@ -61,8 +67,12 @@ export default function Map({ locations, following, locationCoords, language }) 
   // CHAMA A FUNÇÃO PARA OBTER A LOCALIZAÇÃO A CADA 2 SEGUNDOS
   useEffect(() => {
     getUserLocation() // CHAMA A FUNÇÃO IMEDIATAMENTE
-    watchUserPosition() //OBSERVA A POSIÇÃO POR X MILISEGUNDOS
-  }, [userLocation])
+    const WatchId = setInterval(watchUserPosition, 5000) //OBSERVA A POSIÇÃO POR X MILISEGUNDOS
+    console.log(userLocation)
+    return () => {
+      clearInterval(WatchId)
+    }
+  }, [])
 
   // FAZ O CALCULO DA DISTANCIA DO USUÀRIO ATÈ O CUF
   useEffect(() => {
