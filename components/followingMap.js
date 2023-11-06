@@ -21,25 +21,33 @@ export default function Map({locations, following, locationCoords, language}) {
   const [distance, setDistance] = useState(null)
   const [zoom, setZoom] = useState(18)
   const allowedDistance = 120000.00
-
   const originalLatitude  = locationCoords[1]
   const originalLongitude  = locationCoords[0]
   const altitudeChangeMeters  = -0.1 //M
   const newLatitude = latituteAdjustment(originalLatitude, altitudeChangeMeters)
   const centerPosition = [newLatitude, originalLongitude]
 
-  useEffect(() => {
+  // FUNÇÃO PARA OBTER A LOCALIZAÇÃO DO USUÁRIO
+  const getUserLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
         const latitude = position.coords.latitude
         const longitude = position.coords.longitude
         setUserLocation([latitude, longitude])
+        console.log(userLocation)
       }, error => {
         console.error('Erro ao recuperar os dados de localização do usuário:', error)
       });
     } else {
       console.error('Geolocalização não é suportada pelo navegador.')
     }
+  }
+
+  // CHAMA A FUNÇÃO PARA OBTER A LOCALIZAÇÃO A CADA 5 SEGUNDOS
+  useEffect(() => {
+    getUserLocation() // CHAMA A FUNÇÃO IMEDIATAMENTE
+    const locationInterval = setInterval(getUserLocation, 2000) // CHAMA A FUNÇÃO A CADA X MILISEGUNDOS
+    return () => clearInterval(locationInterval) //LIMPA O INTERVALO QUANDO O COMPONENTE É DESMONTADO
   }, [])
 
   useEffect(() => {
