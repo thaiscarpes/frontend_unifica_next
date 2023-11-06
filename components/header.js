@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { MdAdminPanelSettings, MdLanguage, MdLogout } from 'react-icons/md'
 
-export const handleLanguage = () => {
+export const HandleLanguage = () => {
   const pathName = usePathname()
 
   const hasBRPrefix = pathName.startsWith('/pt-BR')
@@ -22,7 +22,7 @@ export const handleLanguage = () => {
 
 export default function Header({ language }) {
 
-  const path = handleLanguage()
+  const path = HandleLanguage()
 
   return (
     <header className='fixed top-0 left-0 w-full bg-white z-20 md:px-[30%]'>
@@ -72,7 +72,7 @@ export function AdminHeader() {
 
 export function LoginHeader({ language }) {
 
-  const path = handleLanguage()
+  const path = HandleLanguage()
 
   return (
     <header className='fixed top-0 left-0 w-full bg-white z-20 md:px-[30%]'>
