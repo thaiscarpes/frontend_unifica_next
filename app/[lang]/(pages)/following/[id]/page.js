@@ -22,6 +22,16 @@ export default function Following({ params }) {
   const [title, setTitle] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
 
+  const pathname = usePathname()
+  const brPrefix = '/pt-BR'
+  const arPrefix = '/es-AR'
+  let lang
+  if (pathname && pathname.startsWith('/es-AR')) {
+    lang = `${arPrefix}`
+  } else {
+    lang = `${brPrefix}`
+  }
+
   useEffect(() => {
     fetchLocation(params.id)
       .then((data) => {
@@ -32,15 +42,6 @@ export default function Following({ params }) {
       })
   }, [params.id])
 
-  const pathname = usePathname()
-  const brPrefix = '/pt-BR'
-  const arPrefix = '/es-AR'
-  let lang
-  if (pathname.startsWith('/es-AR')) {
-    lang = `${arPrefix}`
-  } else {
-    lang = `${brPrefix}`
-  }
 
   return (
     <>{isLoading ? (<LoadSpinner />) : (
@@ -67,7 +68,7 @@ export default function Following({ params }) {
               variant='flat'
               endContent={<MdStopCircle className='text-red-700 text-lg' />}
               className='bg-red-100 text-red-700 hover:bg-red-200 transition-background w-full'
-              onClick={() => router.push(router.push(`${lang}/`))}
+              onClick={() => router.push((`${lang}/`))}
             >
               {dict.commons.stopFollow}
             </Button>
