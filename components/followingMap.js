@@ -47,26 +47,22 @@ export default function Map({ locations, following, locationCoords, language }) 
   const getUserLocation = () => {
 
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(getPosition, geoError);
-    } else {
-      console.error('Não foi possível verificar a localização')
+      navigator.geolocation.getCurrentPosition(getPosition)
     }
   }
 
   // FUNÇÃO PARA ATUALIZAR A LOCALIZAÇÃO DO USUÁRIO
   const watchUserPosition = () => {
     if (navigator.geolocation) {
-      navigator.geolocation.watchPosition(getPosition, geoError);
-    } else {
-      console.error('Não foi possível verificar a localização')
+      navigator.geolocation.watchPosition(getPosition)
     }
   }
 
   // CHAMA A FUNÇÃO PARA OBTER A LOCALIZAÇÃO A CADA 2 SEGUNDOS
   useEffect(() => {
     getUserLocation() // CHAMA A FUNÇÃO IMEDIATAMENTE
-    setInterval(watchUserPosition, 2000) //OBSERVA A POSIÇÃO POR X MILISEGUNDOS
-  }, [])
+    watchUserPosition() //OBSERVA A POSIÇÃO POR X MILISEGUNDOS
+  }, [userLocation])
 
   // FAZ O CALCULO DA DISTANCIA DO USUÀRIO ATÈ O CUF
   useEffect(() => {
