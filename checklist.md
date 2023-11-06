@@ -6,8 +6,8 @@
     - [X] Tela de login
     - [X] Lógica de autenticação
     - [X] Bloqueio das rotas admin
-- [ ] Atualizar o estado do mapa quando seguindo para mostrar a distancia do usuário do local de destino em tempo real
-- [ ] Verificar a possibilidade de atualizar a posição do usuário em tempo real também
+- [X] Atualizar o estado do mapa quando seguindo para mostrar a distancia do usuário do local de destino em tempo real
+- [X] Verificar a possibilidade de atualizar a posição do usuário em tempo real também
 - [X] Idioma
 
 Issues
