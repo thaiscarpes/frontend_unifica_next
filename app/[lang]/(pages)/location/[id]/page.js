@@ -7,6 +7,7 @@ import { fetchLocation } from '@/services/fetchData'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { MdAccessTime, MdCall, MdFax, MdLocationOn } from 'react-icons/md'
+import ImagePlaceholder from '@/components/imagePlaceholder'
 import { getDictionaryUseClient } from '../../../../../dictionaries/default-dictionaries-use-client'
 
 export default function Location({ params }) {
@@ -15,9 +16,11 @@ export default function Location({ params }) {
 
   const [data, setData] = useState('')
   const [isLoading, setIsLoading] = useState(true)
+  const [renderComponent, setRenderComponent] = useState(false)
 
   useEffect(() => {
     const fetchDataAsync = async () => {
+      setIsLoading(true)
       const response = await fetchLocation(params.id)
       if (response) {
         setData(response[0])
@@ -29,20 +32,34 @@ export default function Location({ params }) {
     setIsLoading(false)
   }, [])
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setRenderComponent(true);
+    }, 800);
+
+    return () => {
+      clearTimeout(timer); // Certifique-se de limpar o timer quando o componente é desmontado.
+    };
+  },[])
+
   return (
     <>{isLoading ? (<LoadSpinner />) : (
 
       <>
         <Header language={dict} />
 
-        <main className="flex flex-col gap-8 flex-1 w-full mx-auto h-[90vh] mt-[148px] px-6 py-6 max-w-5xl">
+        <main className="flex flex-col gap-8 flex-1 w-full mx-auto mt-[148px] px-6 py-6 md:px-[30%] pb-28">
 
           <div className="flex flex-col gap-1">
             <h2 className="font-semibold text-zinc-800 text-2xl">{data.title}</h2>
             <span className="text-base">{data.description}</span>
           </div>
 
-          <Image src={`https://source.unsplash.com/${data.image}`} alt={data.title} width={512} height={512} className="rounded-lg max-h-[180px] w-full object-cover" />
+          { renderComponent  ? (
+            <Image src={`https://source.unsplash.com/${data.image}`} id='locationImage' alt={data.title} width={512} height={512} className="rounded-lg max-h-[180px] w-full object-cover" />
+          ) : (
+            <ImagePlaceholder />
+          ) }
 
           {data.address &&
             <DataListItem label={dict.location.address} content={data.address}>

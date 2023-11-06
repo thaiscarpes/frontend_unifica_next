@@ -9,3 +9,10 @@
 - [ ] Atualizar o estado do mapa quando seguindo para mostrar a distancia do usuário do local de destino em tempo real
 - [ ] Verificar a possibilidade de atualizar a posição do usuário em tempo real também
 - [X] Idioma
+
+Issues
+- [ ] Erro de client-side exception
+- [X] Horário de funcionamento fica fora da tela em alguns dispositivos
+- [X] Metros de distância não aparece
+- [ ] Erro mapa já inicializado
+- [X] Adicionar Loader na istagem de uma localização

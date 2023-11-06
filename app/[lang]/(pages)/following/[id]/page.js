@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { MdInfoOutline, MdStopCircle } from 'react-icons/md'
 import { getDictionaryUseClient } from '../../../../../dictionaries/default-dictionaries-use-client'
+import Link from 'next/link'
 
 const Map = dynamic(() => import('@/components/followingMap'), { ssr: false })
 
@@ -42,14 +43,13 @@ export default function Following({ params }) {
           <Map locations={data} following={true} locationCoords={coords} language={dict} />
 
           <div className='flex items-center gap-4 p-4 bg-white border-t-1 border-zinc-200 fixed z-[9999] bottom-0 left-0 w-full md:px-[30%]'>
-            <div className='flex flex-col w-full'>
+            <Link className='flex flex-col w-full' href={`/location/${params.id}`}>
               <span className='tezt-zinc-300 text-base pl-8'>{dict.map.following}</span>
               <div className='flex items-center gap-2'>
                 <MdInfoOutline className='text-3xl min-w-[24px] text-zinc-500' />
                 <p className='text-lg font-bold text-zinc-800 leading-tight'>{title}</p>
               </div>
-            </div>
-
+            </Link>
 
             <Button
               size='lg'

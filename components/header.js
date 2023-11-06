@@ -3,9 +3,26 @@ import Search from '@/components/search'
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react'
 import { signOut } from 'next-auth/react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { MdAdminPanelSettings, MdLanguage, MdLogout } from 'react-icons/md'
 
-export default function Header({language}) {
+export const handleLanguage = () => {
+  const pathName = usePathname()
+
+  const hasBRPrefix = pathName.startsWith('/pt-BR')
+  const hasARPrefix = pathName.startsWith('/es-AR')
+
+  let pathWithoutPrefix = pathName
+  if (hasBRPrefix || hasARPrefix) {
+    pathWithoutPrefix = pathName.slice(6)
+  }
+
+  return pathWithoutPrefix
+}
+
+export default function Header({ language }) {
+
+  const path = handleLanguage()
 
   return (
     <header className='fixed top-0 left-0 w-full bg-white z-20 md:px-[30%]'>
@@ -24,8 +41,8 @@ export default function Header({language}) {
               </Button>
             </DropdownTrigger>
             <DropdownMenu aria-label="Static Actions">
-              <DropdownItem key="new"><Link href='/pt-BR'>Português - Brasil</Link></DropdownItem>
-              <DropdownItem key="copy"><Link href='/es-AR'>Espanhol - Argentina</Link></DropdownItem>
+              <DropdownItem key="pt"><Link href={`/pt-BR/${path}`} passHref >Português - Brasil</Link></DropdownItem>
+              <DropdownItem key="es"><Link href={`/es-AR/${path}`} passHref >Espanhol - Argentina</Link></DropdownItem>
             </DropdownMenu>
           </Dropdown>
         </div>
@@ -47,24 +64,15 @@ export function AdminHeader() {
           <button onClick={() => signOut()}>
             <MdLogout className='text-2xl text-zinc-800 cursor-pointer' />
           </button>
-          {/* <Dropdown>
-            <DropdownTrigger>
-              <Button isIconOnly variant='light'>
-                <MdLanguage className='text-2xl text-zinc-800 cursor-pointer' />
-              </Button>
-            </DropdownTrigger>
-            <DropdownMenu aria-label="Static Actions">
-              <DropdownItem key="new"><Link href='/pt-BR/admin'>Português - Brasil</Link></DropdownItem>
-              <DropdownItem key="copy"><Link href='/es-AR/admin'>Espanhol - Argentina</Link></DropdownItem>
-            </DropdownMenu>
-          </Dropdown> */}
         </div>
       </div>
     </header>
   )
 }
 
-export function LoginHeader({language}) {
+export function LoginHeader({ language }) {
+
+  const path = handleLanguage()
 
   return (
     <header className='fixed top-0 left-0 w-full bg-white z-20 md:px-[30%]'>
@@ -80,8 +88,8 @@ export function LoginHeader({language}) {
               </Button>
             </DropdownTrigger>
             <DropdownMenu aria-label="Static Actions">
-              <DropdownItem key="new"><Link href='/pt-BR/login'>Português - Brasil</Link></DropdownItem>
-              <DropdownItem key="copy"><Link href='/es-AR/login'>Espanhol - Argentina</Link></DropdownItem>
+            <DropdownItem key="pt"><Link href={`/pt-BR/${path}`} passHref >Português - Brasil</Link></DropdownItem>
+              <DropdownItem key="es"><Link href={`/es-AR/${path}`} passHref >Espanhol - Argentina</Link></DropdownItem>
             </DropdownMenu>
           </Dropdown>
         </div>
