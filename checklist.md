@@ -11,8 +11,8 @@
 - [X] Idioma
 
 Issues
-- [ ] Erro de client-side exception
+- [X] Erro de client-side exception
 - [X] Horário de funcionamento fica fora da tela em alguns dispositivos
 - [X] Metros de distância não aparece
-- [ ] Erro mapa já inicializado
+- [X] Erro mapa já inicializado
 - [X] Adicionar Loader na istagem de uma localização

@@ -18,7 +18,8 @@ export const metadata = {
   description: 'Unificando os locais do Centro Unificado de Fronteira',
   manifest: '/manifest.json',
   icons: { apple: '/icon.png' },
-  themeColor: '#fff'
+  themeColor: '#fff',
+  
 }
 
 export default async function RootLayout({ children, params }) {
@@ -26,6 +27,8 @@ export default async function RootLayout({ children, params }) {
     <html lang={params.lang}>
       <head>
         <link rel="shortcut icon" href="icon.png" type="image/x-icon" />
+        <meta name="msapplication-TileColor" content="#fff"/>
+        <meta name="theme-color" content="#fff"/>
       </head>
       <body className={`text-zinc-500 ${lato.className}`}>
         <Provider>{children}</Provider>
