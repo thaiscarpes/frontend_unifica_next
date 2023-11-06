@@ -40,6 +40,16 @@ export default function LoginForm({language}) {
         setIsLoading(false)
     }, [session])
 
+    const pathname = usePathname()
+    const brPrefix = '/pt-BR'
+    const arPrefix = '/es-AR'
+    let lang
+    if (pathname.startsWith('/es-AR')) {
+      lang = `${arPrefix}`
+    } else {
+      lang = `${brPrefix}`
+    }
+
     return (
         <>
             {/* LOGIN COM GOOGLE */}
@@ -64,7 +74,7 @@ export default function LoginForm({language}) {
                     variant='flat'
                     startContent={<MdClose className='text-blue-600 text-lg' />}
                     className='bg-blue-100 text-blue-600 hover:bg-blue-200 transition-background w-1/2'
-                    onClick={() => { router.push('/') }}
+                    onClick={() => { router.push(`${lang}/`)}}
                 >
                     {language.commons.cancel}
                 </Button>

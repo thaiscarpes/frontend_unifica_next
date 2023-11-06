@@ -19,7 +19,6 @@ export default function Home({ params }) {
     fetchLocations()
       .then((data) => {
         setData(data)
-        console.log(dict)
         setIsLoading(false)
       })
   }, [])

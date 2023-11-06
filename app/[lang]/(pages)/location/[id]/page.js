@@ -24,8 +24,6 @@ export default function Location({ params }) {
       const response = await fetchLocation(params.id)
       if (response) {
         setData(response[0])
-        console.log(data)
-        console.log(dict)
       }
     }
     fetchDataAsync()
@@ -35,7 +33,7 @@ export default function Location({ params }) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setRenderComponent(true);
-    }, 800);
+    }, 1200);
 
     return () => {
       clearTimeout(timer); // Certifique-se de limpar o timer quando o componente é desmontado.

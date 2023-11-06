@@ -32,6 +32,16 @@ export default function Following({ params }) {
       })
   }, [params.id])
 
+  const pathname = usePathname()
+  const brPrefix = '/pt-BR'
+  const arPrefix = '/es-AR'
+  let lang
+  if (pathname.startsWith('/es-AR')) {
+    lang = `${arPrefix}`
+  } else {
+    lang = `${brPrefix}`
+  }
+
   return (
     <>{isLoading ? (<LoadSpinner />) : (
 
@@ -57,7 +67,7 @@ export default function Following({ params }) {
               variant='flat'
               endContent={<MdStopCircle className='text-red-700 text-lg' />}
               className='bg-red-100 text-red-700 hover:bg-red-200 transition-background w-full'
-              onClick={() => router.push('/')}
+              onClick={() => router.push(router.push(`${lang}/`))}
             >
               {dict.commons.stopFollow}
             </Button>
