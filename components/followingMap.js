@@ -8,6 +8,7 @@ import userPin from "@/public/user-pin.svg"
 import Link from 'next/link'
 import calculateDistance from '@/utils/calculateDistance'
 import latituteAdjustment from '@/utils/latituteAdjustment'
+import { usePathname } from 'next/navigation'
 
 const locationIcon = new Icon({ iconUrl: locationPin.src, iconSize: [30, 30],})
 const userIcon = new Icon({ iconUrl: userPin.src, iconSize: [30, 30],})
@@ -50,6 +51,15 @@ export default function Map({locations, following, locationCoords, language}) {
     }
   }, [userLocation])
 
+  const pathname = usePathname()
+  const brPrefix = '/pt-BR'
+  const arPrefix = '/es-AR'
+  let lang
+  if (pathname.startsWith('/es-AR')) {
+    lang = `${arPrefix}`
+  } else {
+    lang = `${brPrefix}`
+  }
 
   return (
       <MapContainer center={centerPosition} zoom={zoom} className="h-full w-full" ref={mapContainerRef}>
@@ -66,7 +76,7 @@ export default function Map({locations, following, locationCoords, language}) {
   
         {locations && locations.map(location => (
           // eslint-disable-next-line react/jsx-key
-          <Link href={`/location/${location._id}`} key={location._id} >
+          <Link href={`${lang}/location/${location._id}`} key={location._id} >
             
             <Marker key={location.id} position={[location.pointer.coordinates[1], location.pointer.coordinates[0]]} icon={locationIcon} closeButton={false}>
               { following == true && <Tooltip direction="bottom" offset={[0, 20]} opacity={1} permanent >

@@ -6,7 +6,7 @@ import { Button } from '@nextui-org/react'
 import { Icon } from "leaflet"
 import 'leaflet/dist/leaflet.css'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { MdRefresh } from 'react-icons/md'
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
@@ -49,6 +49,16 @@ export default function Map({ locations, language }) {
     }
   }, [userLocation, latitude, longitude])
 
+  const pathname = usePathname()
+  const brPrefix = '/pt-BR'
+  const arPrefix = '/es-AR'
+  let lang
+  if (pathname.startsWith('/es-AR')) {
+    lang = `${arPrefix}`
+  } else {
+    lang = `${brPrefix}`
+  }
+
   return (
     <MapContainer center={[latitude, longitude]} zoom={zoom} className="h-full w-full" ref={mapContainerRef}>
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
@@ -68,7 +78,7 @@ export default function Map({ locations, language }) {
 
               {locations && locations.map(location => (
                 // eslint-disable-next-line react/jsx-key
-                <Link href={`/location/${location._id}`} key={location._id} >
+                <Link href={`${lang}/location/${location._id}`} key={location._id} >
 
                   <Marker key={location.id} position={[location.pointer.coordinates[1], location.pointer.coordinates[0]]} icon={locationIcon} closeButton={false}>
                     <Popup>
@@ -104,7 +114,7 @@ export default function Map({ locations, language }) {
                 variant='flat'
                 endContent={<MdRefresh className='text-white text-lg' />}
                 className='bg-blue-600 text-white hover:bg-blue-700 transition-background w-full'
-                onClick={() => { router.replace('/') }}
+                onClick={() => { router.replace(`${lang}/`) }}
               >
                 {language.map.cannotGetLocationAction}
               </Button>
