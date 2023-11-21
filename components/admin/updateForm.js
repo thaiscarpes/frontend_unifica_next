@@ -24,6 +24,7 @@ export default function Form({ id }) {
   const [submiting, setSubmiting] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
 
+  // FUNÇÃO PARA ATUALIZAR OS DADOS
   useEffect(() => {
     const fetchDataAsync = async () => {
       const response = await fetchLocation(id)
@@ -90,7 +91,7 @@ export default function Form({ id }) {
   return (
 
     <>
-
+      {/* MODAL DE REMOVER */}
       <Modal
         isOpen={isOpen}
         placement='bottom'
@@ -137,6 +138,7 @@ export default function Form({ id }) {
         </ModalContent>
       </Modal>
 
+      {/* FORMULÁRIO DE EDIÇÃO */}
       {isLoading ?
         (
           <main className="flex justify-center items-center absolute top-1/2 left-1/2 mt-24">

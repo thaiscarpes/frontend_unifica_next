@@ -64,7 +64,7 @@ export default function Map({ locations, following, locationCoords, language }) 
     }
   }
 
-  // CHAMA A FUNÇÃO PARA OBTER A LOCALIZAÇÃO A CADA 2 SEGUNDOS
+  // CHAMA A FUNÇÃO PARA OBTER A LOCALIZAÇÃO A CADA 5 SEGUNDOS
   useEffect(() => {
     getUserLocation() // CHAMA A FUNÇÃO IMEDIATAMENTE
     const WatchId = setInterval(() => { getUserLocation() }, 5000) //OBSERVA A POSIÇÃO POR X MILISEGUNDOS

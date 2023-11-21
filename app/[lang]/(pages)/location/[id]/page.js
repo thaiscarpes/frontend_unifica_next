@@ -18,6 +18,8 @@ export default function Location({ params }) {
   const [isLoading, setIsLoading] = useState(true)
   const [renderComponent, setRenderComponent] = useState(false)
 
+
+  //CHAMA A FUNLÇAO QUE BUSCA UM LOCAL POR ID A PARTIR DO SERVICE
   useEffect(() => {
     const fetchDataAsync = async () => {
       setIsLoading(true)

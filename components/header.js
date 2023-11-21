@@ -6,7 +6,10 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { MdAdminPanelSettings, MdLanguage, MdLogout } from 'react-icons/md'
 
+//FUNLÇAO QUE GERENCIA O IDIOMA
 export const HandleLanguage = () => {
+
+  //VERIFICA O CAMINHO DA ROTA ATUAL E GERENCIA O IDIOMA COM O PREFIXO
   const pathName = usePathname()
 
   const hasBRPrefix = pathName.startsWith('/pt-BR')

@@ -11,6 +11,7 @@ import { useEffect, useRef, useState } from 'react'
 import { MdRefresh } from 'react-icons/md'
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 
+//IMPORTA OS ICONES DE LOCALIZAÇÃO E DO USUÁRIO
 const locationIcon = new Icon({ iconUrl: locationPin.src, iconSize: [30, 30], })
 const userIcon = new Icon({ iconUrl: userPin.src, iconSize: [30, 30], })
 
@@ -26,6 +27,7 @@ export default function Map({ locations, language }) {
   const [zoom, setZoom] = useState(17)
   const allowedDistance = 100000.00
 
+  //BUSCA A LOCALIZAÇÃO DO USUÁRIO
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
@@ -40,6 +42,7 @@ export default function Map({ locations, language }) {
     }
   }, [])
 
+  //VERIFICA SE O USUÁRIO ESTÁ DENTRO DO CUF, RAIO DE 10KM
   useEffect(() => {
     const CUFRadius = [latitude, longitude]
     if (userLocation && CUFRadius) {
@@ -49,6 +52,7 @@ export default function Map({ locations, language }) {
     }
   }, [userLocation, latitude, longitude])
 
+  //VERIFICA O CAMINHO DA ROTA ATUAL E GERENCIA O IDIOMA COM O PREFIXO
   const pathname = usePathname()
   const brPrefix = '/pt-BR'
   const arPrefix = '/es-AR'

@@ -11,7 +11,9 @@ export const metadata = {
 
 export default async function Admin() {
 
+  //VERIFICA SE TEM UMA SESSÃO INICIADA
   const session = await getServerSession(authOptions)
+  //VERIFICA SE O USUÁRIO ESTA AUTORIZADO
   if (!session) redirect("/login?callbackUrl=/admin")
 
   return (

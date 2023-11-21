@@ -5,6 +5,7 @@ import { MdClose, MdExplore } from 'react-icons/md'
 
 export default function Footer({locationId, language}) {
 
+  //VERIFICA O CAMINHO DA ROTA ATUAL E GERENCIA O IDIOMA COM O PREFIXO
   const router = useRouter()
   const pathname = usePathname()
   const brPrefix = '/pt-BR'

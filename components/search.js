@@ -13,23 +13,31 @@ export default function Search({language}) {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    //TESTA SE TEM UM TERMO DE BUSCA
     if (searchTerm) {
+      //ENVIA PAR A FUNÇÃO EM @/SERVICES QUE BUSCA OS LOCAIS COM BASE NO TERMO DE BUSCA
       searchLocation(searchTerm)
+        //ARMAZENDA O DADO EM JSON
         .then((res) => res.json())
+        //ARMAZENDA OS DADOS NO ESTADO DATA
         .then((data) => {
           setData(data)
           setIsLoading(false)
         })
     } else { setData([]) }
+    //REPETIR A FUNÇAO TODA VEZ QUE O SEARCHTERM MUDAR
   }, [searchTerm])
 
+  //FUNÇÃO QUE LIDA COM O EVENTO DE MODIFICAÇÃO DO FORMULÁRIO DE BUSCA 
   const handleInputChange = (e) => {
+    //ARMAZENA OS DADOS DIGITADOS NO ESTADO SEARCHTHERM
     setSearchTerm(e.target.value)
     e.target.value = ''
   }
 
   return (
     <div className="flex flex-col gap-6 items-center justify-between py-4 bg-surface-0 w-full">
+      {/* INPUT DE BUSCA */}
       <Input
         variant="bordered"
         labelPlacement="outside"
@@ -42,6 +50,7 @@ export default function Search({language}) {
         value={searchTerm}
         onChange={handleInputChange}
       />
+      {/* SE TIVER RESULTADOS MOSTRA UM COMPONETENTE */}
       {searchTerm ?
         (
           isLoading ? (<LoadSpinner />) : (

@@ -1,3 +1,5 @@
+//COMPONENTE QUE CONTEM OS DADOS DE DETALHES DE UMA LICALIZAÇAO
+
 export default function DataListItem( {children, label, content, pills, message, startJourney, endJourney} ) {
   return (
     <div className="w-full">

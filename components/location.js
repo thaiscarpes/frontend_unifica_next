@@ -1,3 +1,5 @@
+//COMPONENTE USADO NA LISTAGEM DE TODOS OS LOCAIS, CONTÉM OS DADOS RESUMIDOS DE UN LOCAL
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { MdChevronRight } from 'react-icons/md'

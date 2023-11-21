@@ -1,6 +1,7 @@
 import database from '@/utils/database'
 import LocationModel from '@/utils/locationModel'
 
+//BUSCAR UMA LOCALIZAÇÃO A PARTIR DE TERMOS DE BUSCA
 export async function GET(request) {
   const searchParams = request.nextUrl.searchParams
   const query = searchParams.get('query')

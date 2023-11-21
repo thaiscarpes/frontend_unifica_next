@@ -21,13 +21,17 @@ export default function LoginForm({language}) {
     useEffect(() => {
         setIsLoading(true)
         const fetchDataAsync = async () => {
+            //BUSCA TODOS OS USUÁRIOS DO BACKEND
             const response = await fetchUsers()
             if (response) {
                 if (status === 'authenticated') {
+                    //VERIFICA SE O E-MAIL DO GOOGLE FORNECIDO É CONTIDO ENTRE OS USUÁRIOS CADASTRADOS NO BACKEND
                     const isAuthorized = response.find(data => data.email === session?.user?.email)
                     if (isAuthorized) {
+                        //SE SIM ENVIA PARA A TELA ADMINSITRATIVA
                         router.push('/admin')
                     } else {
+                        //SE NÃO DEFINE COMO NÃO AUTORIZADO
                         setIsLoading(false)
                         setNotAuthorized(true)
                     }
@@ -40,6 +44,7 @@ export default function LoginForm({language}) {
         setIsLoading(false)
     }, [session])
 
+    //VERIFICA O CAMINHO DA ROTA ATUAL E GERENCIA O IDIOMA COM O PREFIXO
     const pathname = usePathname()
     const brPrefix = '/pt-BR'
     const arPrefix = '/es-AR'

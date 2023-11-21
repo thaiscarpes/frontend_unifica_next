@@ -1,5 +1,7 @@
+//CÁLCULO PADRÃO PARA DISTÂNCIA ENTRE DUAS COORDENADAS
 module.exports = function getDistanceFromLatLonInKm(point1, point2) {
-    const earthRadius = 6371000 // Radius of the Earth in km
+    // RAIO DA TERRA EM KM
+    const earthRadius = 6371000
 
     // Converter graus para radianos
     const toRadians = (degrees) => (degrees * Math.PI) / 180

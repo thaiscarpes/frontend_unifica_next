@@ -15,6 +15,7 @@ export default function Home({ params }) {
   const [data, setData] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
 
+  // BUSCA OS LOCAIS CHAMANDO A FUNÇÃO EM SERVICES 
   useEffect(() => {
     fetchLocations()
       .then((data) => {

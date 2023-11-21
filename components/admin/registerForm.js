@@ -20,6 +20,7 @@ export default function Form() {
   const [longitude, setlongitude] = useState('')
   const [submiting, setSubmiting] = useState(false)
 
+  //FUNLÇAO PARA SALVAR OS DADOS
   const onSubmit = async (e) => {
     e.preventDefault()
     const formData = { title, image, description, address, extension, phone, startJourney, endJourney, latitude, longitude }
@@ -48,6 +49,7 @@ export default function Form() {
     inputWrapper: 'border-1 border-zinc-200 bg-white !cursor-text',
   }
 
+  // FORMULÁRIO DE CADASTRO
   return (
     <form onSubmit={onSubmit} className='flex flex-col gap-6 px-4'>
       <Input

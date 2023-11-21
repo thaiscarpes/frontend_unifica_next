@@ -1,9 +1,5 @@
-import {Skeleton} from '@nextui-org/react'
-
 export default function ImagePlaceholder() {
     return(
-        <div className='w-full h-[180px] bg-zinc-200 rounded-lg transition-opacity'>
-
-        </div>
+        <div className='w-full h-[180px] bg-zinc-200 rounded-lg transition-opacity'></div>
     )
 }

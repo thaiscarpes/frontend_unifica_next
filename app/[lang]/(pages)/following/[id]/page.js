@@ -22,6 +22,7 @@ export default function Following({ params }) {
   const [title, setTitle] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
 
+  //VERIFICA O CAMINHO DA ROTA ATUAL E GERENCIA O IDIOMA COM O PREFIXO
   const pathname = usePathname()
   const brPrefix = '/pt-BR'
   const arPrefix = '/es-AR'
@@ -32,6 +33,7 @@ export default function Following({ params }) {
     lang = `${brPrefix}`
   }
 
+  //BUSCA A LOCALIZAÇÃO COM BASE NO ID ATRAVES DA FUNÇÃO VINDA DO SERVICE
   useEffect(() => {
     fetchLocation(params.id)
       .then((data) => {

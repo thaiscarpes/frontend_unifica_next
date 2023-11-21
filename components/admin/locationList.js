@@ -9,6 +9,7 @@ export default function LocationList() {
   const [data, setData] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
 
+  //FUNÇÃO QUE BUSCA TODAS AS LOCALIZAÇÕES
   useEffect(() => {
     fetch('/api/locations', {cache:'no-cache'})
       .then((res) => res.json())
@@ -31,6 +32,7 @@ export default function LocationList() {
             <h3>Nenhum registro encontrado</h3>
           </div>
         ) : (
+          // SE HOUVER LOCALIZAÇÕES, MAPEIA E REPETE O COMPONENTE LOCATION PARA CADA UMA
           <div className="flex flex-col w-full">
             {data.map(result => (
               <Location 
