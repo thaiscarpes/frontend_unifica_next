@@ -2,10 +2,18 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-Create an ".env" file and add the MONGODB-URI:
+You will need to add the MongoDB database settings, to do this create a .env file and add the following information: 
 (MONGODB_URI="mongodb+srv://<username>:<password>@cluster0.fyhjdyt.mongodb.net/?retryWrites=true&w=majority")
 
-First, run the development server:
+After that, you will need to add your account's Google Developer oAuth API settings to the same file:
+GOOGLE_CLIENT_ID="your_google_client_id"
+GOOGLE_CLIENT_SECRET="your_google_client_secret"
+Learn more at https://next-auth.js.org/providers/google
+
+and lastly, in the same file, add the next-auth authentication configuration
+NEXTAUTH_SECRET=your_name_and_lasTnae_for_example
+
+After all, run the development server:
 
 ```bash
 npm run dev
