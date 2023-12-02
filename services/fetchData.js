@@ -40,10 +40,10 @@ export function newLocation(formData) {
 
 //FUNÇÃO QUE PROCURA UM E-MAIL DE USUÁRIO DO BACKEND
 export function fetchUser(email) {
-    return fetch(`/api/users/${email}`).then((res) => res.json())
+    return fetch(`/api/users/${email}`, {cache:'no-store'}).then((res) => res.json())
 }
 
 //FUNÇÃO QUE BUSCA TODOS OS USUÁRIOS
 export function fetchUsers() {
-    return fetch(`/api/users`).then((res) => res.json())
+    return fetch(`/api/users`, {cache:'no-store'}).then((res) => res.json())
 }
