@@ -14,7 +14,7 @@ export async function GET(request, { params }) {
 
 //DELETAR UM USUARIO 
 export async function DELETE(request, { params }) {
-    const email = params.id
+    const id = params.id
 
     try {
         const user = await UserModel.deleteOne({_id: id})
